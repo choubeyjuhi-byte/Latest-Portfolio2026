@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juhi Choubey — The Feather Chronicles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Manrope:wght@300;400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#F4F1EA;--porc:#FAF9F6;--char:#22211F;--ink:#101010;--mist:#D9D7D1;--silver:#BFC0BD;--champ:#D9C9A7;
+--gbg:#F4F1EA;--gfg:#101010;--gline:#BFC0BD;
+--serif:'Cormorant Garamond','Bodoni Moda',Georgia,serif;--sans:'Manrope',Inter,system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gbg:#16150f;--gfg:#F4F1EA;--gline:#4a4842}}
+:root[data-theme="dark"]{--gbg:#16150f;--gfg:#F4F1EA;--gline:#4a4842}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);height:auto}
+*{box-sizing:border-box;margin:0}
+body{background:var(--ink);color:var(--ivory);font-family:var(--sans);font-weight:300;overflow-x:hidden}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--champ);outline-offset:3px}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 16px) 24px 12px;mix-blend-mode:difference;color:#fff}
+nav.top a{text-decoration:none;margin-left:20px}
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 20px 60px;background:radial-gradient(ellipse at 50% 70%,#2a2824 0%,#141311 60%,var(--ink) 100%);position:relative;overflow:hidden}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,12vw,10rem);line-height:.9;letter-spacing:.04em;font-feature-settings:"liga","dlig"}
+h1 em{font-style:italic;color:var(--champ)}
+.intro{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2.4vw,1.7rem);margin-top:18px;color:var(--mist)}
+.desc{margin-top:10px;color:var(--silver)}
+.wheelwrap{position:relative;width:min(78vw,380px);margin:34px auto 10px;animation:hover 6s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-8px)}}
+.wheelwrap svg{width:100%;display:block;overflow:visible}
+#wheel{transition:transform 3.4s cubic-bezier(.12,.7,.1,1);transform-origin:200px 200px}
+#spin{margin-top:18px;background:transparent;color:var(--ivory);border:1px solid var(--silver);padding:16px 38px;font:inherit;font-family:var(--mono);letter-spacing:.3em;font-size:.8rem;cursor:pointer;position:relative;overflow:hidden;transition:color .4s,border-color .4s}
+#spin::before{content:"";position:absolute;inset:0;background:var(--ivory);transform:translateY(101%);transition:transform .45s}
+#spin:hover::before,#spin:focus-visible::before{transform:none}
+#spin:hover,#spin:focus-visible{color:var(--ink);border-color:var(--ivory)}
+#spin span{position:relative}
+#spin:disabled{opacity:.5;cursor:wait}
+.hint{margin-top:14px;font-family:var(--serif);font-style:italic;color:var(--silver)}
+#result{min-height:1.6em;margin-top:8px;color:var(--champ)}
+#sweep{position:fixed;inset:0;z-index:30;pointer-events:none;background:linear-gradient(100deg,transparent 35%,rgba(244,241,234,.28) 50%,transparent 65%);transform:translateX(-110%)}
+#sweep.go{animation:sweep 1.4s ease-in-out}
+@keyframes sweep{to{transform:translateX(110%)}}
+/* STORY */
+#story{background:linear-gradient(#101010,#1a1917 30%,#1a1917);position:relative}
+.wrap{display:grid;grid-template-columns:1.1fr .9fr;max-width:1500px;margin:0 auto}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stage svg.art{position:absolute;inset:0;width:100%;height:100%}
+.meta{position:absolute;top:calc(env(safe-area-inset-top,0px) + 70px);left:28px;z-index:2}
+.meta .big{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,3rem);line-height:1;margin-top:6px}
+.snav{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:3;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;padding:0 12px}
+.snav button{background:rgba(16,16,16,.6);border:1px solid var(--silver);color:var(--ivory);font-family:var(--mono);font-size:.7rem;min-width:34px;height:34px;cursor:pointer;padding:0 10px}
+.snav button[aria-current="true"]{background:var(--ivory);color:var(--ink)}
+.snav button:disabled{opacity:.3;cursor:default}
+.bar{position:absolute;left:28px;right:28px;bottom:calc(env(safe-area-inset-bottom,0px) + 62px);height:1px;background:#444;z-index:2}
+.bar i{display:block;height:1px;background:var(--champ);width:0;transition:width .8s}
+.chs{padding:0 36px 0 10px}
+.ch{min-height:90vh;display:flex;flex-direction:column;justify-content:center;opacity:.22;transition:opacity .7s,transform .7s;transform:translateX(18px)}
+.ch.on{opacity:1;transform:none}
+.ch h3{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4.6vw,4rem);line-height:1;margin:10px 0 14px}
+.ch .roles{color:var(--champ);margin-bottom:16px}
+.ch p{font-family:var(--serif);font-size:clamp(1.15rem,1.8vw,1.5rem);line-height:1.4;color:var(--mist);max-width:30ch}
+.ch small{display:block;margin-top:18px;color:var(--silver)}
+/* BRIDGE */
+#bridge{min-height:100vh;background:#1a1917;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:80px 20px}
+#bridge svg{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+#bridge path,#bridge rect{fill:none;stroke:var(--silver);stroke-width:.6;stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 3s ease}
+#bridge.in path,#bridge.in rect{stroke-dashoffset:0}
+#bridge h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,9vw,8rem);line-height:.95;opacity:0;transform:translateY(30px);transition:all 1.4s .4s;position:relative}
+#bridge p{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.5vw,2rem);color:var(--champ);margin-top:22px;opacity:0;transition:opacity 1.4s 1.2s;position:relative}
+#bridge.in h2{opacity:1;transform:none}#bridge.in p{opacity:1}
+/* WORK */
+#work{background:var(--gbg);color:var(--gfg);padding:90px 24px 70px}
+#work .in{max-width:1300px;margin:0 auto}
+#work h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,8vw,7rem);line-height:.95}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:34px 0 28px}
+.filters button{background:transparent;color:inherit;border:1px solid var(--gline);padding:10px 16px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.filters button[aria-pressed="true"]{background:var(--gfg);color:var(--gbg);border-color:var(--gfg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--gline);border:1px solid var(--gline)}
+.card{background:var(--gbg);padding:22px 20px 20px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;transition:background .4s,color .4s;animation:rise .6s both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.card:hover,.card:focus-visible{background:var(--gfg);color:var(--gbg)}
+.card h4{font-family:var(--serif);font-weight:500;font-size:1.65rem;line-height:1.05;margin:26px 0 18px}
+.card .row{display:flex;justify-content:space-between;opacity:.7}
+.note{margin-top:22px;opacity:.65;max-width:70ch;font-size:.85rem;line-height:1.6}
+footer{background:var(--ink);padding:80px 24px 60px;text-align:center}
+footer h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.6rem,4vw,3rem);max-width:20ch;margin:0 auto 28px}
+footer a{margin:0 12px}
+@media(max-width:860px){
+.wrap{grid-template-columns:1fr}
+.stage{height:50vh;height:50svh;z-index:5;background:#141311;border-bottom:1px solid #333}
+.meta{top:calc(env(safe-area-inset-top,0px) + 54px);left:16px}.bar{left:16px;right:16px}
+.chs{padding:0 20px}.ch{min-height:62vh}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="top mono"><a href="#hero">J.C.</a><span><a href="#story">Story</a><a href="#work">Work</a></span></nav>
+<div id="sweep"></div>
+
+<section id="hero">
+  <h1>JUHI<br><em>CHOUBEY</em></h1>
+  <p class="intro">Designer by craft. Curious by nature. Shaped by every experience.</p>
+  <p class="desc mono">Senior UI/UX Designer · Digital Experiences · Visual Storytelling</p>
+  <div class="wheelwrap">
+    <svg viewBox="0 0 400 430" aria-hidden="true">
+      <defs>
+        <radialGradient id="ivg" cx="40%" cy="35%"><stop offset="0" stop-color="#FAF9F6"/><stop offset="1" stop-color="#D9D7D1"/></radialGradient>
+        <linearGradient id="sig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8E8E5"/><stop offset=".5" stop-color="#9c9d9a"/><stop offset="1" stop-color="#d8d8d4"/></linearGradient>
+        <radialGradient id="hub" cx="38%" cy="32%"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#BFC0BD"/><stop offset="1" stop-color="#6d6d6a"/></radialGradient>
+        <filter id="bl"><feGaussianBlur stdDeviation="9"/></filter>
+      </defs>
+      <ellipse cx="200" cy="410" rx="150" ry="14" fill="#000" opacity=".6" filter="url(#bl)"/>
+      <g id="wheel"></g>
+      <path d="M188 6h24l-12 34z" fill="#D9C9A7" stroke="#101010" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <button id="spin"><span>SPIN TO DISCOVER</span></button>
+  <p class="hint">Every spin reveals a new chapter.</p>
+  <p id="result" class="mono" aria-live="polite"></p>
+</section>
+
+<section id="story" aria-label="Career story">
+  <div class="wrap">
+    <div class="stage">
+      <svg class="art" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A charcoal hat with a white feather that grows more luminous with each career chapter">
+        <defs>
+          <radialGradient id="halo"><stop offset="0" stop-color="#F4F1EA" stop-opacity=".55"/><stop offset=".5" stop-color="#D9C9A7" stop-opacity=".18"/><stop offset="1" stop-color="#D9C9A7" stop-opacity="0"/></radialGradient>
+          <linearGradient id="crown" x1="0" x2="1"><stop offset="0" stop-color="#1b1a18"/><stop offset=".4" stop-color="#3a3834"/><stop offset="1" stop-color="#1b1a18"/></linearGradient>
+          <filter id="fglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter>
+        </defs>
+        <circle id="halo-c" cx="280" cy="190" r="170" fill="url(#halo)" opacity="0"/>
+        <ellipse cx="200" cy="420" rx="170" ry="16" fill="#000" opacity=".55"/>
+        <path d="M112 392C108 330 118 292 150 284Q200 270 250 284C282 292 292 330 288 392Z" fill="url(#crown)" stroke="#BFC0BD" stroke-opacity=".25"/>
+        <path d="M110 372Q200 392 290 372L288 392Q200 412 112 392Z" fill="#F4F1EA" opacity=".9"/>
+        <ellipse cx="200" cy="396" rx="160" ry="30" fill="none" stroke="#BFC0BD" stroke-opacity=".3"/>
+        <path d="M40 398C40 372 110 384 200 384S360 372 360 398C360 424 290 430 200 430S40 424 40 398Z" fill="#2b2926" stroke="#BFC0BD" stroke-opacity=".3"/>
+        <path d="M112 390Q200 410 288 390" fill="none" stroke="#F4F1EA" stroke-opacity=".12"/>
+        <g id="feather">
+          <path id="glow" fill="none" stroke="#F4F1EA" stroke-width="3" filter="url(#fglow)" opacity="0"/>
+          <path id="vane" fill="#fff" stroke="none"/>
+          <path id="fil" fill="none" stroke="#BFC0BD" stroke-width=".5"/>
+          <path id="barbs" fill="none" stroke="#fff" stroke-linecap="round"/>
+          <path id="sheen" fill="none" stroke="#D9C9A7" stroke-width=".7"/>
+          <path id="shaft" fill="none" stroke="#FAF9F6" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div class="meta"><div class="mono" id="m-n"></div><div class="big" id="m-co"></div><div class="mono" id="m-y" style="color:var(--champ);margin-top:8px"></div></div>
+      <div class="bar"><i id="prog"></i></div>
+      <div class="snav" id="snav"></div>
+    </div>
+    <div class="chs" id="chs"></div>
+  </div>
+</section>
+
+<section id="bridge" aria-label="Transition to work">
+  <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M500 600C500 400 300 300 120 40M500 600C500 400 700 300 880 40M500 600V0M500 600C440 380 380 260 330 20M500 600C560 380 620 260 670 20"/>
+    <rect x="120" y="90" width="200" height="130"/><rect x="680" y="70" width="190" height="150"/><rect x="200" y="360" width="150" height="90"/><rect x="650" y="340" width="170" height="110"/>
+  </svg>
+  <div><h2>EVERY CHAPTER<br>LEFT A MARK.</h2><p>Here is what I’ve made along the way.</p>
+  <p style="opacity:1;margin-top:34px"><a class="mono" href="#work" style="color:var(--ivory)">Skip to the work ↓</a></p></div>
+</section>
+
+<section id="work">
+  <div class="in">
+    <p class="mono">Selected work · Behance</p>
+    <h2>The Work</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    <div class="grid" id="grid"></div>
+    <p class="note" id="wnote"></p>
+  </div>
+</section>
+
+<footer>
+  <h2>Let’s make the next chapter together.</h2>
+  <p class="mono"><a href="https://www.behance.net/choubeyjuhi">Behance</a><a href="http://dribbble.com/juhichoubey">Dribbble</a><a href="https://www.behance.net/choubeyjuhi/resume">Resume</a></p>
+  <p class="mono" style="margin-top:36px;color:var(--silver)">© Juhi Choubey</p>
+</footer>
+
+<script>
+/* ===== EDITABLE DATA — dates stay null until verified ===== */
+const CH=[
+{co:"Amazon",roles:["Customer Service Associate"],date:"2015",t:"Where the journey began — understanding people, solving problems, and learning that every meaningful experience starts with empathy."},
+{co:"Sequel Logistics",roles:["Graphic Designer","Marketer","Sales Officer"],date:null,t:"A chapter of exploration — moving between visual communication, marketing, and sales to understand how creativity connects with business."},
+{co:"Oxysmart",roles:["UI/UX Design Intern"],date:null,t:"From communicating ideas to designing interactions — the beginning of a deeper exploration into digital experiences."},
+{co:"Creware Technologies",roles:["UI/UX Designer"],date:null,t:"Turning curiosity into craft — shaping interfaces, simplifying interactions, and bringing structure to digital experiences."},
+{co:"Techno Compass Pvt. Ltd.",roles:["Senior UI/UX Designer"],date:null,t:"Growing from execution into ownership — bringing greater intention, consistency, and strategic thinking to the design process."},
+{co:"Maveric Systems",roles:["Senior UI/UX Designer"],date:null,t:"Designing with greater perspective — connecting user needs, complex systems, and purposeful digital experiences."},
+{co:"Saksoft Pvt. Ltd.",roles:["Senior UI/UX Designer"],date:null,t:"Bringing the journey together — combining empathy, visual thinking, product design, and multidisciplinary experience into a more considered design practice."}];
+const CATS=[["all","All Work"],["m","Mobile Apps"],["w","Web Design"],["g","Graphics"],["v","Video & Motion"],["o","Other Explorations"]];
+/* [title, behance id, category] — categories inferred from titles; edit freely */
+const P=[["Video Ad",248220565,"v"],["Video to create animation",247962413,"v"],["Fleet Data Management and Real-Time Tracking",218288565,"o"],["Office Catering business management",210367075,"o"],["Online Banking App",208379881,"m"],["Expense Tracking and Management App",207640757,"m"],["Farmfreshh",204140779,"o"],["Car Sharing App",186652007,"m"],["Online Kitty Party Concept",185969407,"m"],["Inventory Management Web App Design",182100521,"w"],["Delivery App",182095777,"m"],["Designed responsive design for tab, mobile and laptop",182093635,"w"],["FIGMA GALLERY",182016191,"o"],["mobile app design",161100775,"m"],["Animated Mesh Gradient",161048819,"g"],["Gift app",140802035,"m"],["Puppy Space",132208789,"o"],["news feed dashboard",127042575,"w"],["Herba herbal products packaging",125614605,"g"],["Solitaire Battle Game",125613479,"o"],["Music Class Mobile Application",124863109,"m"],["THE Yoga Spa - UI & UX",124655999,"o"],["Logo and Packaging Design",124008745,"g"],["Logofolio . 2021",123059091,"g"],["Kids Apparels",122935001,"g"],["Online Library - Login Page",122863373,"w"],["Facebook post",122684869,"g"],["corporate meeting app",122632239,"m"],["Food delivery and blogger listing app",122564919,"m"],["Home page design-landing page",122564611,"w"],["ArtiCraftzz - art and craft mobile application",121478501,"m"],["Apparels, Hand Bags and T-shrts",121112867,"g"],["the beauty shop mockup",120801355,"g"],["the beauty store - mobile app",120733515,"m"],["Rapido - Learn , Practice and Earn",120182687,"m"],["SALAD BOWL - FACEBOOK AD",120109329,"g"]];
+
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
+
+/* ===== WHEEL ===== */
+const WORDS=["EXPERIENCE","DISCOVER","CREATE","EVOLVE","EXPLORE","BEGIN"];
+(function(){const w=$('#wheel');let h='<circle cx="200" cy="200" r="190" fill="url(#sig)"/><circle cx="200" cy="200" r="178" fill="#2a2926"/>';
+for(let i=0;i<6;i++){const a0=(i*60-30-90)*Math.PI/180,a1=(i*60+30-90)*Math.PI/180,r=172,x0=200+r*Math.cos(a0),y0=200+r*Math.sin(a0),x1=200+r*Math.cos(a1),y1=200+r*Math.sin(a1);
+h+=`<path d="M200 200L${x0} ${y0}A${r} ${r} 0 0 1 ${x1} ${y1}Z" fill="${i%2?'#D9D7D1':'url(#ivg)'}" stroke="#8d8d8a" stroke-width=".8"/>`;
+h+=`<text transform="rotate(${i*60} 200 200)" x="200" y="72" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#22211F">${WORDS[i]}</text>`;}
+for(let i=0;i<72;i++)h+=`<line x1="200" y1="${i%6?24:18}" x2="200" y2="30" stroke="#101010" stroke-width="${i%6?.5:1}" opacity=".5" transform="rotate(${i*5} 200 200)"/>`;
+h+='<circle cx="200" cy="200" r="46" fill="#22211F" stroke="url(#sig)" stroke-width="3"/><circle cx="200" cy="200" r="30" fill="url(#hub)"/><circle cx="200" cy="200" r="6" fill="#101010"/>';
+w.innerHTML=h;})();
+let spins=0,rot=0;const btn=$('#spin');
+btn.onclick=()=>{
+  btn.disabled=true;const r=spins%6;spins++;$('#result').textContent='';
+  rot=Math.ceil(rot/360)*360+(RM?0:360*4)+((360-r*60)%360);
+  $('#wheel').style.transform=`rotate(${rot}deg)`;
+  let done=false;const fin=()=>{if(done)return;done=true;
+    $('#result').textContent=WORDS[r]+' — your chapter begins';
+    if(!RM){const s=$('#sweep');s.classList.remove('go');void s.offsetWidth;s.classList.add('go');navigator.vibrate&&navigator.vibrate(20)}
+    setTimeout(()=>{btn.disabled=false;setCh(0);$('#story').scrollIntoView({behavior:RM?'auto':'smooth'})},RM?100:900)};
+  $('#wheel').addEventListener('transitionend',fin,{once:true});setTimeout(fin,RM?50:3700);
+};
+
+/* ===== FEATHER ===== */
+const P0=[232,338],P1=[252,180],P2=[318,52],N=48;
+const bz=t=>[0,1].map(k=>(1-t)*(1-t)*P0[k]+2*(1-t)*t*P1[k]+t*t*P2[k]);
+const tg=t=>{const x=2*(1-t)*(P1[0]-P0[0])+2*t*(P2[0]-P1[0]),y=2*(1-t)*(P1[1]-P0[1])+2*t*(P2[1]-P1[1]),l=Math.hypot(x,y);return[x/l,y/l]};
+function draw(p){
+  const maxL=12+26*p,off=p<.5?0:.5;let b='',f='',s='',L=[],R=[];
+  for(let i=0;i<=N;i++){const t=.2+.8*i/N,[x,y]=bz(t),[tx,ty]=tg(t),nx=-ty,ny=tx,len=maxL*Math.sin(Math.PI*(.06+.88*(i/N)))**.8+2;
+    for(const sd of[-1,1]){const dx=sd*nx*.82+tx*.57,dy=sd*ny*.82+ty*.57,ex=x+dx*len,ey=y+dy*len;b+=`M${x.toFixed(1)} ${y.toFixed(1)}L${ex.toFixed(1)} ${ey.toFixed(1)}`;(sd<0?L:R).push([ex,ey]);
+      if(i%2==0){const m=len*.55;f+=`M${(x+tx*3).toFixed(1)} ${(y+ty*3).toFixed(1)}L${(x+dx*m+tx*4).toFixed(1)} ${(y+dy*m+ty*4).toFixed(1)}`}
+      if(p>.45&&i%3==0)s+=`M${(x+dx*len*.3).toFixed(1)} ${(y+dy*len*.3).toFixed(1)}L${ex.toFixed(1)} ${ey.toFixed(1)}`}}
+  const poly=L.map(q=>q.join(' ')).join('L')+'L'+R.reverse().map(q=>q.join(' ')).join('L')+'Z';
+  const sh=`M${P0[0]} ${P0[1]}Q${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]}`;
+  $('#vane').setAttribute('d','M'+poly);$('#vane').setAttribute('opacity',.1+.18*p);
+  $('#barbs').setAttribute('d',b);$('#barbs').setAttribute('stroke-width',.55+.5*p);$('#barbs').setAttribute('opacity',.5+.5*p);
+  $('#fil').setAttribute('d',f);$('#fil').setAttribute('opacity',.2+.6*p);
+  $('#sheen').setAttribute('d',s);$('#sheen').setAttribute('opacity',Math.max(0,(p-.4)/.6)*.9);
+  $('#shaft').setAttribute('d',sh);$('#shaft').setAttribute('stroke-width',1+2*p);
+  $('#glow').setAttribute('d',sh);$('#glow').setAttribute('opacity',Math.max(0,p-.1)*.7);
+  $('#halo-c').setAttribute('opacity',Math.max(0,p-.15)*1.1);
+  $('#feather').style.filter=`drop-shadow(0 0 ${(p*14).toFixed(1)}px rgba(217,201,167,${(p*.55).toFixed(2)}))`;
+}
+let cp=0,tp=0,raf;
+function loop(){cp=RM?tp:cp+(tp-cp)*.06;if(Math.abs(tp-cp)<.002)cp=tp;draw(cp);if(cp!==tp)raf=requestAnimationFrame(loop)}
+
+/* ===== STORY ===== */
+const chs=$('#chs'),nav=$('#snav');let cur=-1;
+const pad=n=>String(n).padStart(2,'0');
+CH.forEach((c,i)=>{
+  chs.insertAdjacentHTML('beforeend',`<article class="ch" id="c${i}" tabindex="-1"><span class="mono" style="color:var(--silver)">Chapter ${pad(i+1)}</span><h3></h3><div class="roles mono"></div><p></p><small class="mono">${c.date||'Career chapter'}</small></article>`);
+  const a=$('#c'+i);a.querySelector('h3').textContent=c.co;a.querySelector('.roles').textContent=c.roles.join(' · ');a.querySelector('p').textContent=c.t;
+});
+nav.insertAdjacentHTML('beforeend','<button id="pv" aria-label="Previous chapter">←</button>');
+CH.forEach((c,i)=>nav.insertAdjacentHTML('beforeend',`<button data-i="${i}" aria-label="Chapter ${i+1}: ${c.co}">${pad(i+1)}</button>`));
+nav.insertAdjacentHTML('beforeend','<button id="nx" aria-label="Next chapter">→</button>');
+function setCh(i){if(i===cur)return;cur=i;const c=CH[i];
+  $('#m-n').textContent=`${pad(i+1)} / ${pad(CH.length)}`;$('#m-co').textContent=c.co;$('#m-y').textContent=(c.date?c.date+' · ':'')+c.roles.join(' / ');
+  document.querySelectorAll('.ch').forEach((e,k)=>e.classList.toggle('on',k===i));
+  nav.querySelectorAll('[data-i]').forEach(b=>b.setAttribute('aria-current',b.dataset.i==i));
+  $('#pv').disabled=i===0;$('#nx').disabled=i===CH.length-1;$('#prog').style.width=(i/(CH.length-1)*100)+'%';
+  tp=i/(CH.length-1);cancelAnimationFrame(raf);loop();}
+const go=i=>{i=Math.max(0,Math.min(CH.length-1,i));setCh(i);$('#c'+i).scrollIntoView({behavior:RM?'auto':'smooth',block:'center'})};
+nav.onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;go(b.id==='pv'?cur-1:b.id==='nx'?cur+1:+b.dataset.i)};
+(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setCh(+e.target.id.slice(1))}),{rootMargin:'-45% 0px -45% 0px'});document.querySelectorAll('.ch').forEach(c=>io.observe(c))})();
+setCh(0);
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.35}).observe($('#bridge'));
+
+/* ===== WORK ===== */
+let f='all';const fl=$('#filters'),gr=$('#grid');
+CATS.forEach(([k,l],i)=>{const n=k==='all'?P.length:P.filter(p=>p[2]===k).length;fl.insertAdjacentHTML('beforeend',`<button data-k="${k}" aria-pressed="${k==='all'}">${pad(i+1)} ${l.replace('&','&amp;')} <span style="opacity:.6">(${n})</span></button>`)});
+function render(){gr.innerHTML='';const list=P.filter(p=>f==='all'||p[2]===f);
+  list.forEach((p,i)=>{const a=document.createElement('a');a.className='card';a.href='https://www.behance.net/gallery/'+p[1];a.target='_blank';a.rel='noopener';a.style.animationDelay=(i%12)*40+'ms';
+    a.innerHTML='<div class="row mono"><span></span><span></span></div><h4></h4><div class="row mono"><span>View on Behance</span><span>↗</span></div>';
+    const sp=a.querySelectorAll('.row span');sp[0].textContent=pad(i+1);sp[1].textContent=CATS.find(c=>c[0]===p[2])[1];a.querySelector('h4').textContent=p[0];gr.appendChild(a)});
+  $('#wnote').textContent=f==='v'?'Video & motion projects open on Behance, where their media is hosted. Playable embeds can be added once the video files or embed links are supplied.':(f==='all'?`Showing ${P.length} projects imported from the public Behance profile. Categories are inferred from project titles and are easy to adjust in the data array.`:'');}
+fl.onclick=e=>{const b=e.target.closest('button');if(!b)return;f=b.dataset.k;fl.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()};
+render();
+</script>
+</body>
+</html>
